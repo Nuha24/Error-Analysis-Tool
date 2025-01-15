@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Numerical Method Project</title>
+    <script src="index.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  </head>
+  <body style="height: 100vh;">
+    <div style="position: fixed; top: 8px; right: 12px; display: flex; gap: 24px;">
+      <a href="./index.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">
+        Home
+      </a>
+      <a href="./propagation.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">
+        Error Propagation
+      </a>
+      <a href="./rounding.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">
+        Banker's Rounding
+      </a>
+      <a href="./documentation.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">
+        Documentation
+      </a>
+    </div>
+  
+    <!-- Title Section -->
+    <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; height: 8rem;">
+      <h1 style="font-size: 2.5rem; font-weight: bold; color: #2c756b;">Numerical Project</h1>
+      <h2 style="font-size: 1.25rem; font-family: monospace; font-weight: 600; color: #37566b; margin-top: 0.5rem;">
+        Error Analysis Tool
+      </h2>
+    </div>
+
+    <!-- Input Form -->
+    <div style="display: flex; flex-direction: column; align-items: center; padding: 16px;">
+      <form id="errorForm" style="max-width: 32rem; width: 100%; text-align: center;">
+        <div style="display: flex; gap: 16px;">
+          <input
+            type="number"
+            id="input1"
+            placeholder="Enter Value Ex. 100.00"
+            style="border: 1px solid #cbd5e0; padding: 12px; width: 100%; font-size: 0.875rem; color: #2d3748;"
+            step="any"
+            required
+          />
+          <input
+            type="number"
+            id="input2"
+            placeholder="Enter Approximate Number"
+            style="border: 1px solid #cbd5e0; padding: 12px; width: 100%; font-size: 0.875rem; color: #2d3748;"
+            step="any"
+            required
+          />
+        </div>
+        <div style="display: flex; gap: 16px; width: 100%; margin-top: 24px;">
+          <button type="submit" style="background-color: #513085; padding: 12px; width: 100%; color: #ffffff; border: none; cursor: pointer;">
+            Analyze
+          </button>
+          <button type="button" onclick="resetForm()" style="background-color: #3182ce; padding: 12px; width: 100%; color: #ffffff; border: none; cursor: pointer;">
+            Reset
+          </button>
+          <button type="button" id="randomizeButton" style="background-color: #38b2ac; padding: 12px; width: 100%; color: #ffffff; border: none; cursor: pointer;">
+            Randomize
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Results Section -->
+    <div style="display: flex; flex-direction: column; align-items: center; padding: 24px;">
+      <h3 style="font-size: 1.25rem; font-weight: bold; color: #4a5568;">Error Results</h3>
+      <ul id="errorResults" style="list-style: none; color: #718096; text-align: center; padding: 0; margin: 16px 0;">
+        <li style="display: flex; justify-content: center; gap: 8px;">
+          <span style="font-weight: 600;">Absolute Error:</span>
+          <span id="absoluteError">0</span>
+        </li>
+        <li style="display: flex; justify-content: center; gap: 8px;">
+          <span style="font-weight: 600;">Relative Error:</span>
+          <span id="relativeError">0</span>
+        </li>
+        <li style="display: flex; justify-content: center; gap: 8px;">
+          <span style="font-weight: 600;">Percentage Error:</span>
+          <span id="percentageError">0</span>
+        </li>
+        <li style="display: flex; justify-content: center; gap: 8px;">
+          <span style="font-weight: 600;">Truncation Error:</span>
+          <span id="truncationError">0</span>
+        </li>
+        <li style="display: flex; justify-content: center; gap: 8px;">
+          <span style="font-weight: 600;">Round-off Error:</span>
+          <span id="roundOffError">0</span>
+        </li>
+        <li style="display: flex; justify-content: center; gap: 8px;">
+          <span style="font-weight: 600;">Error Propagation:</span>
+          <span id="errorPropagation">0</span>
+        </li>
+      </ul>
+      <p style="margin-top: 16px; font-size: 1.125rem; font-weight: 600; color: #1a202c;">Largest Error: <span id="largestError">N/A</span></p>
+    </div>
+
+    <!-- Charts Section -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 16px;">
+      <!-- Pie Chart -->
+      <div style="display: flex; justify-content: center;">
+        <div id="pieChart" style="max-width: 20rem; width: 100%; height: 300px;"></div>
+      </div>
+      <!-- Bar Chart -->
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <div id="barChart" style="width: 100%; max-width: 600px; height: 400px;"></div>
+      </div>
+    </div>
+  </body>
+</html>

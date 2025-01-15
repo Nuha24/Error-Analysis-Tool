@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banker’s Rounding Rule</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .button-rect {
+      background-color: #1d4ed8;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      text-align: center;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    .button-rect:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+<body class="h-screen bg-gray-100 text-gray-800">
+  <div class="container mx-auto py-8 px-4">
+    <a href="./index.html" class="absolute top-4 left-4 text-blue-500 font-bold">Back to Home</a>
+    <h1 class="text-3xl font-bold text-center mb-6">Banker’s Rounding Rule</h1>
+    <p class="mb-4">
+      Banker’s rounding, also known as Gaussian rounding, is a method to round numbers to the nearest even number when the digit to be rounded is exactly 5. It adheres to IEEE Standard 754 and is commonly used in numerical computing.
+    </p>
+    <ul class="list-disc pl-8 mb-6">
+      <li>If the next digit is less than 5, the number is rounded down.</li>
+      <li>If the next digit is greater than 5, the number is rounded up.</li>
+      <li>If the next digit is exactly 5, the rounding depends on the previous digit being even or odd:</li>
+      <ul class="list-disc pl-6">
+        <li>Even: The digit remains unchanged.</li>
+        <li>Odd: The digit is increased by 1.</li>
+      </ul>
+    </ul>
+
+    <!-- User Input Section -->
+    <div class="bg-white p-6 rounded shadow-md mb-6">
+      <h2 class="text-xl font-semibold mb-4">Test Banker’s Rounding Rule</h2>
+      <form id="roundingForm" class="space-y-4">
+        <div>
+          <label for="inputNumber" class="block text-gray-700 font-medium mb-1">Enter a Number:</label>
+          <input
+            type="number"
+            id="inputNumber"
+            step="any"
+            placeholder="e.g., 1.6585"
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-400"
+            required
+          />
+        </div>
+        <div>
+          <label for="significantDigits" class="block text-gray-700 font-medium mb-1">Significant Digits:</label>
+          <input
+            type="number"
+            id="significantDigits"
+            min="1"
+            placeholder="e.g., 4"
+            class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-400"
+            required
+          />
+        </div>
+        <button
+          type="submit"
+          class="button-rect w-full"
+        >
+          Calculate
+        </button>
+      </form>
+      <div id="result" class="mt-4 text-gray-700 font-medium hidden">
+        <p>Original Number: <span id="originalNumber"></span></p>
+        <p>Rounded Number: <span id="roundedNumber"></span></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('roundingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const inputNumber = parseFloat(document.getElementById('inputNumber').value);
+      const significantDigits = parseInt(document.getElementById('significantDigits').value);
+
+      // Function to perform Banker's Rounding
+      function bankersRounding(value, digits) {
+        const factor = Math.pow(10, digits);
+        const tempNumber = value * factor;
+        const roundedTemp = Math.round(tempNumber);
+        const diff = Math.abs(tempNumber - roundedTemp);
+
+        if (diff === 0.5) {
+          return (Math.floor(tempNumber) % 2 === 0 ? Math.floor(tempNumber) : Math.ceil(tempNumber)) / factor;
+        }
+        return roundedTemp / factor;
+      }
+
+      const roundedNumber = bankersRounding(inputNumber, significantDigits);
+
+      // Display results
+      document.getElementById('originalNumber').textContent = inputNumber.toFixed(significantDigits + 1);
+      document.getElementById('roundedNumber').textContent = roundedNumber.toFixed(significantDigits);
+      document.getElementById('result').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>

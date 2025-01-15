@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="px-5 py-4">
+    <header class="container relative mb-10">
+      <a href="./index.html" class="absolute top-4 left-4 text-blue-500 font-bold">Back to Home</a>
+    </header>
+
+    <article class="text-md mt-5 text-center">
+      <h1 class="text-2xl font-semibold">Error Analysis</h1>
+
+      <div class="mt-2">
+        <h2 class="text-lg font-semibold">  Analysis of Errors Used in Our Project</h2>
+        <p class="text-lg"> This documentation provides a detailed overview of error
+          analysis, numerical methods, and tools for exploring approximations and
+          errors in numerical computations.
+        </p>
+      </div>
+
+      <div class="text-left">
+        <h2 class="text-lg font-semibold">Features</h2>
+        <p class="text-lg my-2 ml-2">
+          1. Absolute Error <br />
+          2. Relative Error <br />
+          3. Percentage Error <br />
+          4. Truncation Error <br />
+          5. Round-off Error <br />
+          6. Error Propagation Analysis <br />
+        </p>
+
+        <div class="ml-2">
+          <p>
+            <span class="font-semibold">1. Absolute Error:</span> The absolute
+            difference between the true value and the approximate value. Formula:
+            <code>E<sub>a</sub> = |X<sub>t</sub> - X<sub>a</sub>|</code>
+          </p>
+
+          <p>
+            <span class="font-semibold">2. Relative Error:</span> The normalized
+            absolute error, defined as:
+            <code>E<sub>r</sub> = |E<sub>a</sub>| / |X<sub>t</sub>|</code>
+          </p>
+
+          <p>
+            <span class="font-semibold">3. Percentage Error:</span> The relative
+            error multiplied by 100. Formula:
+            <code>E<sub>p</sub> = E<sub>r</sub> * 100</code>
+          </p>
+
+          <p>
+            <span class="font-semibold">4. Truncation Error:</span> Errors
+            introduced when infinite processes (e.g., Taylor series) are
+            approximated with a finite number of terms.
+          </p>
+
+          <p>
+            <span class="font-semibold">5. Round-off Error:</span> Errors
+            introduced when numbers are rounded during numerical computation,
+            often due to limitations in floating-point representation.
+          </p>
+
+          <p>
+            <span class="font-semibold">6. Error Propagation:</span> The effect of
+            individual errors propagating through arithmetic operations in
+            computations. Includes addition, subtraction, multiplication, and
+            division.
+          </p>
+        </div>
+      </div>
+
+      <div class="my-3 text-left">
+        <h2 class="text-lg font-semibold">Error Propagation Analysis</h2>
+        <p class="ml-2">
+          <strong>Addition/Subtraction:</strong> Total error is the sum of
+          absolute errors of the operands. Formula:
+          <code>E<sub>x+y</sub> = E<sub>x</sub> + E<sub>y</sub></code>
+        </p>
+
+        <p class="ml-2">
+          <strong>Multiplication:</strong> Total error depends on relative errors
+          of operands. Formula:
+          <code>E<sub>xy</sub> = |X<sub>x</sub>Y<sub>y</sub>|(|E<sub>x</sub>/X<sub>x</sub>| + |E<sub>y</sub>/Y<sub>y</sub>|)</code>
+        </p>
+
+        <p class="ml-2">
+          <strong>Division:</strong> Error depends on relative errors of numerator
+          and denominator. Formula:
+          <code>E<sub>x/y</sub> = |X<sub>x</sub>/Y<sub>y</sub>|(|E<sub>x</sub>/X<sub>x</sub>| + |E<sub>y</sub>/Y<sub>y</sub>|)</code>
+        </p>
+      </div>
+
+      <div class="text-left">
+        <h2 class="text-lg font-semibold my-2">Conclusion</h2>
+        <p>
+          Understanding error analysis is vital in numerical methods. This tool
+          provides a robust way to quantify and analyze errors, ensuring the
+          reliability of numerical computations.
+        </p>
+      </div>
+    </article>
+
+    <div class="mb-8">
+      <h2 class="text-2xl font-bold mb-4">Error Examples</h2>
+
+      <p class="mb-4">
+        <strong>Absolute Error:</strong> Suppose the true value is 2.11, and the
+        approximate value is 2.10. Then:
+      </p>
+      <div class="mb-4">
+        <pre class="bg-gray-200 p-2 rounded-md">
+          <code>E<sub>a</sub> = |2.11 - 2.10| = 0.01</code>
+        </pre>
+      </div>
+
+      <p class="mb-4">
+        <strong>Relative Error:</strong> Using the same values, the relative error
+        is:
+      </p>
+      <div class="mb-4">
+        <pre class="bg-gray-200 p-2 rounded-md">
+          <code>E<sub>r</sub> = E<sub>a</sub> / |X<sub>t</sub>| = 0.01 / 2.11 = 0.0047</code>
+        </pre>
+      </div>
+
+      <p class="mb-4">
+        <strong>Percentage Error:</strong> Multiply the relative error by 100:
+      </p>
+      <div class="mb-4">
+        <pre class="bg-gray-200 p-2 rounded-md">
+          <code>E<sub>p</sub> = E<sub>r</sub> * 100 = 0.47%</code>
+        </pre>
+      </div>
+
+      <p class="mb-4">
+        <strong>Truncation Error:</strong> Consider the series expansion of sin(x):
+      </p>
+      <div class="mb-4">
+        <pre class="bg-gray-200 p-2 rounded-md">
+          <code>
+            sin(x) = x - x^3/3! + x^5/5! - ...
+            For x = 1, truncating after x - x^3/3! gives:
+            sin(1) ≈ 1 - (1^3)/6 = 0.8333
+          </code>
+        </pre>
+      </div>
+
+      <p class="mb-4">
+        <strong>Round-off Error:</strong> Consider storing the value 42.7893 in a
+        system that allows only 4 significant digits:
+      </p>
+      <div class="mb-4">
+        <pre class="bg-gray-200 p-2 rounded-md">
+          <code>Stored value = 42.79, Round-off Error = |42.7893 - 42.79| = 0.0003</code>
+        </pre>
+      </div>
+    </div>
+  </body>
+</html>
