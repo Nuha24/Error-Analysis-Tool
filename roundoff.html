@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Round-off Error Analysis</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f8f9fa;
+      text-align: center;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 14px;
+      color: #6c757d;
+      max-width: 600px;
+      margin: 10px auto;
+    }
+    form {
+      max-width: 500px;
+      width: 100%;
+      margin: 20px auto;
+    }
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      text-align: left;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .back-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #007bff;
+      text-decoration: none;
+    }
+    .back-button:hover {
+      text-decoration: underline;
+    }
+    #chartContainer {
+      max-width: 600px;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Back to Home Button -->
+  <a href="./index.html" class="back-button">Back to Home</a>
+
+  <h1>Round-off Error Analysis</h1>
+  <p>
+    Round-off errors can occur through two methods: <strong>Chopping</strong> and <strong>Symmetric Roundoff</strong>. This tool analyzes both methods.
+  </p>
+
+  <form id="roundoffForm">
+    <label for="trueValue">Enter True Value:</label>
+    <input type="number" id="trueValue" step="any" placeholder="True Value (e.g., 42.7893)" required>
+
+    <label for="mantissaLength">Enter Mantissa Length:</label>
+    <input type="number" id="mantissaLength" placeholder="Number of Significant Digits (e.g., 4)" required>
+
+    <button type="submit">Analyze</button>
+  </form>
+
+  <div id="results">
+    <p>Chopped Value: <span id="choppedValue">N/A</span></p>
+    <p>Symmetric Rounded Value: <span id="roundedValue">N/A</span></p>
+  </div>
+
+  <div id="chartContainer">
+    <canvas id="roundoffChart"></canvas>
+  </div>
+
+  <script>
+    const roundoffChart = new Chart(document.getElementById("roundoffChart"), {
+      type: "bar",
+      data: {
+        labels: ["True Value", "Chopped Value", "Rounded Value"],
+        datasets: [{
+          label: "Round-off Analysis",
+          data: [0, 0, 0],
+          backgroundColor: ["#007bff", "#6c757d", "#28a745"],
+          borderWidth: 1,
+        }],
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
+      },
+    });
+
+    document.getElementById("roundoffForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const trueValue = parseFloat(document.getElementById("trueValue").value);
+      const mantissaLength = parseInt(document.getElementById("mantissaLength").value);
+
+      if (isNaN(trueValue) || isNaN(mantissaLength) || mantissaLength <= 0) {
+        alert("Please enter valid inputs.");
+        return;
+      }
+
+      // Calculate Chopped Value
+      const factor = Math.pow(10, mantissaLength - 1);
+      const choppedValue = Math.floor(trueValue * factor) / factor;
+
+      // Calculate Symmetric Rounded Value
+      const roundedValue = Math.round(trueValue * factor) / factor;
+
+      // Update Results
+      document.getElementById("choppedValue").innerText = choppedValue.toFixed(mantissaLength);
+      document.getElementById("roundedValue").innerText = roundedValue.toFixed(mantissaLength);
+
+      // Update Chart
+      roundoffChart.data.datasets[0].data = [trueValue, choppedValue, roundedValue];
+      roundoffChart.update();
+    });
+  </script>
+</body>
+</html>

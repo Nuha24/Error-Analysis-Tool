@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Truncation Error Analysis</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #212529;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 14px;
+      color: #6c757d;
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+    form {
+      width: 100%;
+      max-width: 500px;
+    }
+    label {
+      font-size: 14px;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      text-align: left;
+    }
+    textarea, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 14px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    textarea {
+      resize: none;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #results {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    .result {
+      margin-bottom: 10px;
+    }
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #007bff;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .back-button:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Back to Home Button -->
+  <a href="./index.html" class="back-button">Back to Home</a>
+
+  <h1>Truncation Error Analysis</h1>
+  <p>
+    Numerical computing involves a series of computations where truncation errors can arise from approximations. Analyze truncation error here.
+  </p>
+  <form id="truncationForm">
+    <label for="exactEquation">Enter Exact Equation (Use 'x' as the variable):</label>
+    <textarea id="exactEquation" placeholder="e.g., 1/(1-x*x)"></textarea>
+
+    <label for="approxEquation">Enter Approximation Equation (Use 'x' as the variable):</label>
+    <textarea id="approxEquation" placeholder="e.g., 1 + x*x + x**4"></textarea>
+
+    <label for="inputValue">Enter Value for 'x':</label>
+    <input type="number" id="inputValue" step="any" placeholder="Value of x" required>
+
+    <button type="submit">Calculate</button>
+  </form>
+
+  <div id="results">
+    <div class="result">Exact Value: <span id="exactValue">N/A</span></div>
+    <div class="result">Approximation Value: <span id="approximationValue">N/A</span></div>
+    <div class="result">Truncation Error: <span id="truncationError">N/A</span></div>
+  </div>
+
+  <script>
+    // Function to safely evaluate the equation
+    function evaluateEquation(equation, xValue) {
+      if (!equation.includes('x')) {
+        alert("Equation must include the variable 'x'.");
+        return NaN;
+      }
+
+      // Replace '^' with '**' for JavaScript and substitute 'x' with the given value
+      const sanitizedEquation = equation.replace(/\^/g, "**").replace(/x/g, `(${xValue})`);
+
+      // Use `eval` to calculate the value
+      return eval(sanitizedEquation);
+    }
+
+    // Handle form submission
+    document.getElementById("truncationForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const exactEquation = document.getElementById("exactEquation").value.trim();
+      const approxEquation = document.getElementById("approxEquation").value.trim();
+      const inputValue = parseFloat(document.getElementById("inputValue").value);
+
+      if (!exactEquation || !approxEquation) {
+        alert("Please enter both exact and approximation equations.");
+        return;
+      }
+
+      if (isNaN(inputValue)) {
+        alert("Please enter a valid number for 'x'.");
+        return;
+      }
+
+      // Evaluate the exact and approximation equations
+      const exactValue = evaluateEquation(exactEquation, inputValue);
+      const approximationValue = evaluateEquation(approxEquation, inputValue);
+
+      // Check for invalid equations
+      if (isNaN(exactValue) || isNaN(approximationValue)) {
+        alert("Invalid equations. Please check your syntax.");
+        return;
+      }
+
+      // Calculate truncation error
+      const truncationError = Math.abs(exactValue - approximationValue);
+
+      // Display results on the page
+      document.getElementById("exactValue").innerText = exactValue.toFixed(6);
+      document.getElementById("approximationValue").innerText = approximationValue.toFixed(6);
+      document.getElementById("truncationError").innerText = truncationError.toFixed(6);
+    });
+  </script>
+</body>
+</html>
