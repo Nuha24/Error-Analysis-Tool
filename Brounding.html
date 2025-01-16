@@ -30,8 +30,8 @@
       Banker’s rounding, also known as Gaussian rounding, is a method to round numbers to the nearest even number when the digit to be rounded is exactly 5. It adheres to IEEE Standard 754 and is commonly used in numerical computing.
     </p>
     <ul class="list-disc pl-8 mb-6">
-      <li>If the next digit is less than 5, the number is rounded down.</li>
-      <li>If the next digit is greater than 5, the number is rounded up.</li>
+      <li>If the next digit is less than 5, leave the nth significant digit unaltered.</li>
+      <li>If it is greater than 5, add 1 to the nth significant digit</li>
       <li>If the next digit is exactly 5, the rounding depends on the previous digit being even or odd:</li>
       <ul class="list-disc pl-6">
         <li>Even: The digit remains unchanged.</li>
