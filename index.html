@@ -10,27 +10,19 @@
   </head>
   <body style="height: 100vh;">
     <div style="position: fixed; top: 8px; right: 12px; display: flex; gap: 24px;">
-      <a href="./index.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">
-        Home
-      </a>
-      <a href="./propagation.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">
-        Error Propagation
-      </a>
-      <a href="./rounding.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">
-        Banker's Rounding
-      </a>
-      <a href="./documentation.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">
-        Documentation
-      </a>
+      <a href="./index.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">Home</a>
+      <a href="./propagation.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">Error Propagation</a>
+      <a href="./truncation.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">Truncation Error</a>
+      <a href="./Brounding.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">Banker's Rounding</a>
+      <a href="./roundoff.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">Round-off Error</a>
+      <a href="./description.html" style="color: #6b7280; font-weight: 600; font-size: 0.875rem; transition: color 0.3s;">Description</a>
     </div>
   
     <!-- Title Section -->
     <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; height: 8rem;">
       <h1 style="font-size: 2.5rem; font-weight: bold; color: #2c756b;">Numerical Project</h1>
-      <h2 style="font-size: 1.25rem; font-family: monospace; font-weight: 600; color: #37566b; margin-top: 0.5rem;">
-        Error Analysis Tool
-      </h2>
-    </div>
+      <h2 style="font-size: 1.25rem; font-family: monospace; font-weight: 600; color: #37566b; margin-top: 0.5rem;">Error Analysis Tool </h2>
+   </div>
 
     <!-- Input Form -->
     <div style="display: flex; flex-direction: column; align-items: center; padding: 16px;">
@@ -39,7 +31,7 @@
           <input
             type="number"
             id="input1"
-            placeholder="Enter True Value (e.g., 100.00)"
+            placeholder="True Value (e.g., 100.00)"
             style="border: 1px solid #cbd5e0; padding: 12px; width: 100%; font-size: 0.875rem; color: #2d3748;"
             step="any"
             required
@@ -47,22 +39,16 @@
           <input
             type="number"
             id="input2"
-            placeholder="Enter Approximate Value (e.g., 98.50)"
+            placeholder="Approximate Value (e.g., 98.50)"
             style="border: 1px solid #cbd5e0; padding: 12px; width: 100%; font-size: 0.875rem; color: #2d3748;"
             step="any"
             required
           />
         </div>
         <div style="display: flex; gap: 16px; width: 100%; margin-top: 24px;">
-          <button type="submit" style="background-color: #513085; padding: 12px; width: 100%; color: #ffffff; border: none; cursor: pointer;">
-            Analyze
-          </button>
-          <button type="button" onclick="resetForm()" style="background-color: #3182ce; padding: 12px; width: 100%; color: #ffffff; border: none; cursor: pointer;">
-            Reset
-          </button>
-          <button type="button" id="randomizeButton" style="background-color: #38b2ac; padding: 12px; width: 100%; color: #ffffff; border: none; cursor: pointer;">
-            Randomize
-          </button>
+          <button type="submit" style="background-color: #513085; padding: 12px; width: 100%; color: #ffffff; border: none; cursor: pointer;">Evaluate</button>
+          <button type="button" onclick="resetForm()" style="background-color: #3182ce; padding: 12px; width: 100%; color: #ffffff; border: none; cursor: pointer;">Reset</button>
+          <button type="button" id="randomizeButton" style="background-color: #38b2ac; padding: 12px; width: 100%; color: #ffffff; border: none; cursor: pointer;">Random Value</button>
         </div>
       </form>
     </div>
@@ -82,18 +68,6 @@
         <li style="display: flex; justify-content: center; gap: 8px;">
           <span style="font-weight: 600;">Percentage Error:</span>
           <span id="percentageError">0</span>
-        </li>
-        <li style="display: flex; justify-content: center; gap: 8px;">
-          <span style="font-weight: 600;">Truncation Error:</span>
-          <span id="truncationError">0</span>
-        </li>
-        <li style="display: flex; justify-content: center; gap: 8px;">
-          <span style="font-weight: 600;">Round-off Error:</span>
-          <span id="roundOffError">0</span>
-        </li>
-        <li style="display: flex; justify-content: center; gap: 8px;">
-          <span style="font-weight: 600;">Error Propagation:</span>
-          <span id="errorPropagation">0</span>
         </li>
       </ul>
       <p style="margin-top: 16px; font-size: 1.125rem; font-weight: 600; color: #1a202c;">Largest Error: <span id="largestError">N/A</span></p>
