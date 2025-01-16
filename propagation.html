@@ -11,9 +11,7 @@
     <a href="./index.html" class="absolute top-4 left-4 text-blue-500 font-bold">Back to Home</a>
 
     <h1 class="text-3xl font-bold text-center mb-6">Error Propagation</h1>
-    <p class="mb-4">
-      Numerical computing involves a series of computations where errors from one step can propagate to the final result. Understanding error propagation helps us evaluate and minimize these errors in numerical methods.
-    </p>
+    <p class="mb-4">Numerical computing involves a series of computations where errors from one step can propagate to the final result. Understanding error propagation helps us evaluate and minimize these errors in numerical methods.</p>
     <h2 class="text-xl font-semibold mb-4">Calculate Error Propagation</h2>
 
     <!-- User Input Form -->
@@ -30,7 +28,7 @@
         />
       </div>
       <div>
-        <label for="ex" class="block text-gray-700 font-medium mb-2">Error in X (\(e_x\)):</label>
+        <label for="ex" class="block text-gray-700 font-medium mb-2">Error in ΔX:</label>
         <input
           type="number"
           id="ex"
@@ -52,7 +50,7 @@
         />
       </div>
       <div>
-        <label for="ey" class="block text-gray-700 font-medium mb-2">Error in Y (\(e_y\)):</label>
+        <label for="ey" class="block text-gray-700 font-medium mb-2">Error in ΔY:</label>
         <input
           type="number"
           id="ey"
@@ -105,8 +103,10 @@
       // Error Propagation Calculation
       switch (operation) {
         case 'addition':
+        totalError = ex + ey; // Absolute errors are summed
+        break;
         case 'subtraction':
-          totalError = ex + ey; // Absolute errors are summed
+          totalError = ex - ey; 
           break;
         case 'multiplication':
           totalError = Math.abs(x * y) * (Math.abs(ex / x) + Math.abs(ey / y));
@@ -115,7 +115,6 @@
           totalError = Math.abs(x / y) * (Math.abs(ex / x) + Math.abs(ey / y));
           break;
       }
-
       // Display the result
       document.getElementById('totalError').textContent = totalError.toFixed(5);
       document.getElementById('result').classList.remove('hidden');
